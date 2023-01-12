@@ -1,0 +1,122 @@
+<form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+  <div class="card m-3">
+    <h5 class="card-header">Angular 8 Dynamic Reactive Forms Example</h5>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Number of TextBox</label>
+          <select
+            formControlName="numberOfTextboxs"
+            class="form-control"
+            (change)="onChangeTextbox($event)"
+            [ngClass]="{ 'is-invalid': submitted && f.numberOfTextboxs.errors }"
+          >
+            <option value="0">Select Textbox</option>
+            <option *ngFor="let i of [1, 2, 3, 4, 5]">{{ i }}</option>
+          </select>
+          <div
+            *ngIf="submitted && f.numberOfTextboxs.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.numberOfTextboxs.errors.required">
+              Number of textbox is required
+            </div>
+          </div>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+          <label>Number of Dropdown</label>
+          <select
+            formControlName="numberOfDropdowns"
+            class="form-control"
+            (change)="onChangeDropdown($event)"
+            [ngClass]="{
+              'is-invalid': submitted && f.numberOfDropdowns.errors
+            }"
+          >
+            <option value="0">Select Dropdown</option>
+            <option *ngFor="let i of [1, 2, 3]">{{ i }}</option>
+          </select>
+          <div
+            *ngIf="submitted && f.numberOfDropdowns.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.numberOfDropdowns.errors.required">
+              Number of dropdown is required
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h5 class="card-title">Groupbox1</h5>
+    <div *ngFor="let textbox of t.controls; let i = index" class="list-group list-group-flush">
+      <div class="list-group-item">
+        <div [formGroup]="groupbox1" class="form-row">
+          <div class="form-group col-6">
+            <label>Name</label>
+            <input
+              type="text"
+              formControlName="name"{{i+1}}
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': submitted && textbox.controls.name.errors
+              }"
+            />
+            <div
+              *ngIf="submitted && textbox.controls.name.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="textbox.controls.name.errors.required">
+                Name is required
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h5 class="card-title">Groupbox2</h5>
+    <div *ngFor="let dropdwn of d.controls" class="list-group list-group-flush">
+      <div class="list-group-item">
+        <div [formGroup]="groupbox2" class="form-row">
+          <div class="form-group col-6">
+            <label>Dropdown</label>
+            <select
+              formControlName="state"
+              class="form-control"
+              (change)="onChangeDropdwn($event)"
+              [ngClass]="{
+                'is-invalid': submitted && f.numberOfDropdwns.errors
+              }"
+            >
+              <option value="0">Select State</option>
+              <option value="1">TamilNadu</option>
+              <option value="1">Kerala</option>
+              <option value="1">Andhra</option>
+            </select>
+            <div
+              *ngIf="submitted && d.controls.state.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="d.controls.state.errors.required">
+                State is required
+              </div>
+              <div *ngIf="d.controls.state.errors">State must be a valid</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer text-center">
+      <button class="btn btn-primary mr-1">Save</button>
+      <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">
+        Reset
+      </button>
+      <button class="btn btn-secondary" type="button" (click)="onClear()">
+        Clear
+      </button>
+    </div>
+  </div>
+</form>
