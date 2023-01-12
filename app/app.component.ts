@@ -67,6 +67,7 @@ export class AppComponent implements OnInit {
     }
   }
 
+  onChangeState(e) {}
   onSubmit() {
     this.submitted = true;
 
@@ -76,9 +77,7 @@ export class AppComponent implements OnInit {
     }
 
     // display form values on success
-    alert(
-      'SUCCESS!! :-)\n\n' + JSON.stringify(this.dynamicForm.value, null, 4)
-    );
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.dynamicForm.value, null, 4));
   }
 
   onReset() {
@@ -86,11 +85,13 @@ export class AppComponent implements OnInit {
     this.submitted = false;
     this.dynamicForm.reset();
     this.t.clear();
+    this.d.clear();
   }
 
   onClear() {
     // clear errors and reset ticket fields
     this.submitted = false;
     this.t.reset();
+    this.d.reset();
   }
 }
