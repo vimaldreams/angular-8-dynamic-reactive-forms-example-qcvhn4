@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
       dropdowns: new FormArray([]),
 
       name: ['', Validators.required],
+      state: ['', Validators.required],
     });
   }
 
